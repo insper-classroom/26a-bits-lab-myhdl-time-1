@@ -12,13 +12,14 @@ from myhdl import *
 
 @block
 def exe1(q, a, b):
+
     """
     q = a or !b
     """
 
     @always_comb
     def comb():
-        pass
+        q.next = a or (not b)
 
     return instances()
 
@@ -44,7 +45,7 @@ def exe2(q, a, b, c):
 
     @always_comb
     def comb():
-        q.next = a or b
+        q.next = (b and c) or (not b and not c)
 
     return instances()
 
@@ -58,21 +59,24 @@ def exe3(q, a, b, c, d, e):
 
                __
     a---------\  \
-              |   )-  __
+              |   )-  __ 
     b---------/__/  -|  \
                      |   )-
-    c----------------|__/  -  __
+    c----------------|__/  -  __ 
                             -|  \
                              |   )-
-    d------------------------|__/  -  __
+    d------------------------|__/  -  __ 
                                     -|  \
-                                     |   )-----
+                                     |   )----- 
     e--------------------------------|__/
     """
 
     @always_comb
     def comb():
-        q.next = a
+        no1 = (a or b)
+        no2 = no1 and c
+        no3 = no2 and d
+        q.next = no3 and e
 
     return instances()
 
