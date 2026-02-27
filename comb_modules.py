@@ -116,6 +116,7 @@ def exe5(leds, sw):
         leds[7].next = True
         leds[8].next = True
         leds[9].next = True
+        # exercicio 5
 
     return instances()
 
